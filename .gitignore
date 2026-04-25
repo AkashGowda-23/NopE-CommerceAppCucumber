@@ -1,0 +1,33 @@
+# ── Build output ──────────────────────────────────────────────
+target/
+*.class
+*.jar
+*.war
+
+# ── IDE files ─────────────────────────────────────────────────
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+*.eclipse
+
+# ── Browser drivers (managed automatically by Selenium 4.x) ──
+Drivers/
+drivers/
+
+# ── Test reports & artefacts ──────────────────────────────────
+target/cucumber-reports/
+target/extent-reports/
+target/allure-results/
+target/allure-report/
+target/screenshots/
+target/logs/
+
+# ── OS artefacts ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Secrets — NEVER commit real credentials ───────────────────
+*.env
+secrets.properties

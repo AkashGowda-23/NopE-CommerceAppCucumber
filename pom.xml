@@ -1,186 +1,175 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>nopeCommerceCucumberV1</groupId>
-  <artifactId>nopeCommerceCucumberV1</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+             https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.nopcommerce</groupId>
+    <artifactId>nopcommerce-cucumber-automation</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>NopCommerce Cucumber Automation Framework</name>
+    <description>Production-grade Selenium + Cucumber test automation for NopCommerce admin portal</description>
 
+    <!-- ═══════════════════════════════════════════════════════════
+         Version management — change versions here only
+         ═══════════════════════════════════════════════════════════ -->
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.11.0</version>
-				</plugin>
+        <!-- Selenium -->
+        <selenium.version>4.26.0</selenium.version>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>3.5.0</version>
-					<configuration>
-						<includes>
-							<include>**/ParallelRunner.java</include>
-						</includes>
-						<parallel>methods</parallel>
-						<threadCount>3</threadCount>
-						<useUnlimitedThreads>false</useUnlimitedThreads>
-					</configuration>
-				</plugin>
+        <!-- Cucumber -->
+        <cucumber.version>7.20.1</cucumber.version>
 
-			</plugins>
+        <!-- Reporting -->
+        <extentreports-cucumber7.version>1.14.0</extentreports-cucumber7.version>
+        <allure-cucumber7.version>2.29.0</allure-cucumber7.version>
+        <allure.maven.version>2.13.0</allure.maven.version>
 
-		</pluginManagement>
+        <!-- Utilities -->
+        <apache-poi.version>5.3.0</apache-poi.version>
+        <log4j.version>2.24.1</log4j.version>
+        <commons-io.version>2.17.0</commons-io.version>
+        <commons-lang3.version>3.15.0</commons-lang3.version>
 
+        <!-- Test runner -->
+        <maven-surefire.version>3.5.0</maven-surefire.version>
+    </properties>
 
-	</build>
-	<!-- Here you can change the versions in future -->
-	<properties>
-		<selenium-version>4.26.0</selenium-version>
-		<apache-poi-version>5.3.0</apache-poi-version>
-		<log4j-version>2.24.1</log4j-version>
-		<commons-io-version>2.17.0</commons-io-version>
-		<commons-lang3-version>3.15.0</commons-lang3-version>
+    <dependencies>
 
-		<!-- for cucumber -->
-		<cucumber-junit-version>7.20.1</cucumber-junit-version>
-		<cucumber-java-version>7.20.1</cucumber-java-version>
-		<cucumber-picocontainer-version>7.20.1</cucumber-picocontainer-version>
-		<extentreports-cucumber7-version>1.14.0</extentreports-cucumber7-version>
+        <!-- ── Selenium ────────────────────────────────────── -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
 
-		<!--for allure reports -->
-		<allure-cucumber7-jvm-version>2.29.0</allure-cucumber7-jvm-version>
+        <!-- ── Cucumber ────────────────────────────────────── -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
 
-		<testng-version>7.10.2</testng-version>
+        <!-- ── Reporting ───────────────────────────────────── -->
+        <dependency>
+            <groupId>tech.grasshopper</groupId>
+            <artifactId>extentreports-cucumber7-adapter</artifactId>
+            <version>${extentreports-cucumber7.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber7-jvm</artifactId>
+            <version>${allure-cucumber7.version}</version>
+        </dependency>
 
-	</properties>
+        <!-- ── Logging ─────────────────────────────────────── -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
 
+        <!-- ── Utilities ───────────────────────────────────── -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${apache-poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${apache-poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
 
-	<dependencies>
+    </dependencies>
 
-		<!--
-		https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>${selenium-version}</version>
-		</dependency>
+    <build>
+        <plugins>
 
+            <!-- Compiler: enforce Java 17, UTF-8 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>${apache-poi-version}</version>
-		</dependency>
+            <!-- Surefire: run TestRunner, parallel by class for speed -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/runner/TestRunner.java</include>
+                    </includes>
+                    <!-- Cucumber tags can be overridden from CLI:
+                         mvn test -Dcucumber.filter.tags="@smoke" -->
+                    <systemPropertyVariables>
+                        <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
+                    </systemPropertyVariables>
+                    <parallel>classes</parallel>
+                    <threadCount>2</threadCount>
+                    <useUnlimitedThreads>false</useUnlimitedThreads>
+                    <rerunFailingTestsCount>1</rerunFailingTestsCount>
+                </configuration>
+            </plugin>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>${apache-poi-version}</version>
-		</dependency>
+            <!-- Allure: generate HTML report -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure.maven.version}</version>
+                <configuration>
+                    <reportVersion>${allure-cucumber7.version}</reportVersion>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                </configuration>
+            </plugin>
 
+        </plugins>
+    </build>
 
-		<!--
-		https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-		<!-- https://logging.apache.org/log4j/2.x/maven-artifacts.html -->
-
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j-version}</version>
-		</dependency>
-
-		<!--https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>${log4j-version}</version>
-		</dependency>
-
-		<!--
-		Https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-slf4j-impl</artifactId>
-			<version>${log4j-version}</version>
-		</dependency>
-
-
-		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${commons-io-version}</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons-lang3-version}</version>
-		</dependency>
-
-
-		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-junit</artifactId>
-			<version>${cucumber-junit-version}</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java  -->
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-java</artifactId>
-			<version>${cucumber-java-version}</version>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
-		<dependency>
-		    <groupId>io.cucumber</groupId>
-		    <artifactId>cucumber-picocontainer</artifactId>
-		    <version>${cucumber-picocontainer-version}</version>
-		</dependency>
-
-
-
-
-		<!-- Extents reports -->
-		<!--
-		https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter/1.14.0 -->
-		<dependency>
-			<groupId>tech.grasshopper</groupId>
-			<artifactId>extentreports-cucumber7-adapter</artifactId>
-			<version>${extentreports-cucumber7-version}</version>
-		</dependency>
-
-
-		<!-- allure reports -->
-		<!--
-		https://mvnrepository.com/artifact/io.qameta.allure/allure-cucumber7-jvm -->
-		<dependency>
-			<groupId>io.qameta.allure</groupId>
-			<artifactId>allure-cucumber7-jvm</artifactId>
-			<version>${allure-cucumber7-jvm-version}</version>
-		</dependency>
-
-
-		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>${testng-version}</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-testng</artifactId>
-			<version>7.20.1</version>
-		</dependency>
-</dependencies>
-  
 </project>
